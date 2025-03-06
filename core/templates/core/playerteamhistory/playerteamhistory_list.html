@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Histórico de Times dos Jogadores</h2>
+
+    <a href="{% url 'playerteamhistory_create' %}" class="btn btn-primary mb-3">Adicionar Registro</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Jogador</th>
+                <th>Time</th>
+                <th>Data de Início</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for history in playerteamhistories %}
+            <tr>
+                <td>{{ history.player.name }}</td>
+                <td>{{ history.team.name }}</td>
+                <td>{{ history.start_date }}</td>
+                <td>
+                    <a href="{% url 'playerteamhistory_detail' history.pk %}" class="btn btn-info btn-sm">Ver</a>
+                    <a href="{% url 'playerteamhistory_edit' history.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'playerteamhistory_delete' history.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">Nenhum histórico cadastrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

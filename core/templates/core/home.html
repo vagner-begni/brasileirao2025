@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">Estatísticas do Campeonato</h2>
+
+    <!-- Próximos Jogos -->
+    <div class="mt-4">
+        <h4>📅 Próximos 10 Jogos</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Rodada</th>
+                    <th>Data</th>
+                    <th>Hora</th>
+                    <th>Casa</th>
+                    <th></th>
+                    <th>Visitante</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for match in upcoming_matches %}
+                <tr>
+                    <td>{{ match.round }}</td>  <!-- Mostra a rodada -->
+                    <td>{{ match.date }}</td>
+                    <td>{{ match.hour }}</td>
+                    <td class="text-end">
+                        {{ match.home_team }}
+                        <img src="{{ match.home_team.emblem.url }}" alt="{{ match.home_team.name }}" width="30">
+                    </td>
+                    <td class="text-center">X</td>
+                    <td>
+                        <img src="{{ match.visiting_team.emblem.url }}" alt="{{ match.visiting_team.name }}" width="30">
+                        {{ match.visiting_team }}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7" class="text-center">Nenhum jogo agendado</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Estatísticas de Jogadores (3 tabelas lado a lado) -->
+    <div class="row mt-4">
+        
+        <!-- Artilharia -->
+        <div class="col-md-4">
+            <h4>🎯 Artilharia</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th> <!-- Emblema -->
+                        <th>Jogador</th>
+                        <th>Gols</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for player in top_scorers %}
+                    <tr>
+                        <td>
+                            <img src="{{ player.get_current_team.emblem.url }}" alt="{{ player.get_current_team.name }}" width="30">
+                        </td>
+                        <td>{{ player.name }}</td>
+                        <td>{{ player.total_goals }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="3" class="text-center">Nenhum dado disponível</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Assistências -->
+        <div class="col-md-4">
+            <h4>🎯 Assistência</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th> <!-- Emblema -->
+                        <th>Jogador</th>
+                        <th>Assistências</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for player in top_assistants %}
+                    <tr>
+                        <td>
+                            <img src="{{ player.get_current_team.emblem.url }}" alt="{{ player.get_current_team.name }}" width="30">
+                        </td>
+                        <td>{{ player.name }}</td>
+                        <td>{{ player.total_assists }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="3" class="text-center">Nenhum dado disponível</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Participação em Gols -->
+        <div class="col-md-4">
+            <h4>⚽ Participação em Gols</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th> <!-- Emblema -->
+                        <th>Jogador</th>
+                        <th>Gols + Assist.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for player in top_participation %}
+                    <tr>
+                        <td>
+                            <img src="{{ player.get_current_team.emblem.url }}" alt="{{ player.get_current_team.name }}" width="30">
+                        </td>
+                        <td>{{ player.name }}</td>
+                        <td>{{ player.total_participation }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="3" class="text-center">Nenhum dado disponível</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div> <!-- Fim das estatísticas de jogadores -->
+
+</div>
+{% endblock %}

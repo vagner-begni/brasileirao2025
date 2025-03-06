@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4 text-center">
+    <h2>Excluir Histórico do Jogador</h2>
+
+    <p>Tem certeza que deseja excluir o histórico de <strong>{{ playerteamhistory.player.name }}</strong> no time <strong>{{ playerteamhistory.team.name }}</strong>?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sim, excluir</button>
+    </form>
+
+    <a href="{% url 'playerteamhistory_list' %}" class="btn btn-secondary mt-3">Cancelar</a>
+</div>
+{% endblock %}

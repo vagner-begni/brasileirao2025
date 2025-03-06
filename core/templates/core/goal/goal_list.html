@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Lista de Gols</h2>
+
+    <a href="{% url 'goal_create' %}" class="btn btn-primary mb-3">Adicionar Gol</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Partida</th>
+                <th>Minuto</th>
+                <th>Jogador</th>
+                <th>Time</th>
+                <th>Assistente</th>
+                <th>Tipo de Jogada</th>
+                <th>Finalização</th>
+                <th>Zona do Gol</th>
+                <th>Tipo de Assistência</th>
+                <th>Gol Contra?</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for goal in goals %}
+            <tr>
+                <td>{{ goal.match }}</td>
+                <td>{{ goal.minute }}'</td>
+                <td>{{ goal.kicker }}</td>
+                <td>{{ goal.kicker.get_current_team }}</td>
+                <td>{{ goal.assistant|default:"Sem assistência" }}</td>
+                <td>{{ goal.move }}</td>
+                <td>{{ goal.shot_type }}</td>
+                <td>{{ goal.goal_zone }}</td>
+                <td>{{ goal.assist_type|default:"N/A" }}</td>
+                <td>{% if goal.own_goal %}Sim{% else %}Não{% endif %}</td>
+                <td>
+                    <a href="{% url 'goal_detail' goal.pk %}" class="btn btn-info btn-sm">Ver</a>
+                    <a href="{% url 'goal_edit' goal.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'goal_delete' goal.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="11" class="text-center">Nenhum gol cadastrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

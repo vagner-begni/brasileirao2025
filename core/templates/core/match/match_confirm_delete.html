@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4 text-center">
+    <h2>Excluir Partida</h2>
+
+    <p>Tem certeza que deseja excluir a partida entre <strong>{{ match.home_team }}</strong> e <strong>{{ match.visiting_team }}</strong>?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sim, excluir</button>
+    </form>
+
+    <a href="{% url 'match_list' %}" class="btn btn-secondary mt-3">Cancelar</a>
+</div>
+{% endblock %}

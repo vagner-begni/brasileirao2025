@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4 text-center">
+    <h2>Excluir Time</h2>
+
+    {% if team.emblem %}
+        <img src="{{ team.emblem.url }}" alt="{{ team.name }}" width="80">
+    {% endif %}
+
+    <p class="mt-3">Tem certeza que deseja excluir <strong>{{ team.name }}</strong>?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sim, excluir</button>
+    </form>
+
+    <a href="{% url 'team_list' %}" class="btn btn-secondary mt-3">Cancelar</a>
+</div>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Lista de Partidas</h2>
+
+    <a href="{% url 'match_create' %}" class="btn btn-primary mb-3">Adicionar Partida</a>
+
+    <table class="table table-striped table-responsive">
+        <thead>
+            <tr>
+                <th style="width: 5%;">Status</th>
+                <th style="width: 5%;">Rodada</th>
+                <th style="width: 10%;">Data</th>
+                <th style="width: 8%;">Horário</th>
+                <th style="width: 15%;">Estádio</th>
+                <th style="width: 12%;">Time Casa</th>
+                <th style="width: 12%;">Time Visitante</th>
+                <th style="width: 5%;">Gols Casa</th>
+                <th style="width: 5%;">Gols Visitante</th>
+                <th style="width: 10%;">Árbitro</th>
+                <th style="width: 13%;">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for match in page_obj %}
+            <tr>
+                <td>{{ match.status }}</td>
+                <td>{{ match.round }}</td>
+                <td>{{ match.date }}</td>
+                <td>{{ match.hour }}</td>
+                <td class="text-truncate" style="max-width: 150px;">{{ match.stadium }}</td>
+                <td>{{ match.home_team }}</td>
+                <td>{{ match.visiting_team }}</td>
+                <td>{{ match.home_team_numgoals }}</td>
+                <td>{{ match.visiting_team_numgoals }}</td>
+                <td>{{ match.referee }}</td>
+                <td class="text-center">
+                    <div class="btn-group btn-group-sm" role="group">
+                        <a href="{% url 'match_detail' match.pk %}" class="btn btn-info">Ver</a>
+                        <a href="{% url 'match_edit' match.pk %}" class="btn btn-warning">Editar</a>
+                        <a href="{% url 'match_delete' match.pk %}" class="btn btn-danger">Excluir</a>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="11" class="text-center">Nenhuma partida cadastrada.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+
+    <!-- Paginação -->
+    {% if page_obj.paginator.num_pages > 1 %}
+    <nav aria-label="Paginação">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo; Primeira</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                </li>
+            {% endif %}
+
+            <li class="page-item active">
+                <span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+            </li>
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Próxima</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

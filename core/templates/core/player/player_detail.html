@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Detalhes do Jogador</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <h4>{{ player.name }}</h4>
+            <p><strong>Número:</strong> {{ player.number }}</p>
+            <p><strong>Posição:</strong> {{ player.position }}</p>
+            <p><strong>Idade:</strong> {{ player.age }}</p>
+            <p><strong>País:</strong> {{ player.country }}</p>
+            <p><strong>Time Atual:</strong> {{ player.get_current_team }}</p>
+        </div>
+    </div>
+
+    <a href="{% url 'player_list' %}" class="btn btn-secondary mt-3">Voltar</a>
+    <a href="{% url 'player_edit' player.pk %}" class="btn btn-warning mt-3">Editar</a>
+</div>
+{% endblock %}

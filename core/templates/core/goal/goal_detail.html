@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Detalhes do Gol</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <h4>Partida: {{ goal.match }}</h4>
+            <p><strong>Minuto:</strong> {{ goal.minute }}'</p>
+            <p><strong>Jogador:</strong> {{ goal.kicker }}</p>
+            <p><strong>Time:</strong> {{ goal.kicker.get_current_team }}</p>
+            <p><strong>Assistente:</strong> {{ goal.assistant|default:"Sem assistência" }}</p>
+            <p><strong>Tipo de Jogada:</strong> {{ goal.move }}</p>
+            <p><strong>Tipo de Finalização:</strong> {{ goal.shot_type }}</p>
+            <p><strong>Zona do Gol:</strong> {{ goal.goal_zone }}</p>
+            <p><strong>Tipo de Assistência:</strong> {{ goal.assist_type|default:"N/A" }}</p>
+            <p><strong>Gol Contra?</strong> {% if goal.own_goal %}Sim{% else %}Não{% endif %}</p>
+        </div>
+    </div>
+
+    <a href="{% url 'goal_list' %}" class="btn btn-secondary mt-3">Voltar</a>
+    <a href="{% url 'goal_edit' goal.pk %}" class="btn btn-warning mt-3">Editar</a>
+</div>
+{% endblock %}

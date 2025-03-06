@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Detalhes do Histórico do Jogador</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <p><strong>Jogador:</strong> {{ playerteamhistory.player.name }}</p>
+            <p><strong>Time:</strong> {{ playerteamhistory.team.name }}</p>
+            <p><strong>Data de Início:</strong> {{ playerteamhistory.start_date }}</p>
+        </div>
+    </div>
+
+    <a href="{% url 'playerteamhistory_list' %}" class="btn btn-secondary mt-3">Voltar</a>
+    <a href="{% url 'playerteamhistory_edit' playerteamhistory.pk %}" class="btn btn-warning mt-3">Editar</a>
+</div>
+{% endblock %}

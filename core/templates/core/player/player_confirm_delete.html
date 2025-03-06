@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4 text-center">
+    <h2>Excluir Jogador</h2>
+
+    <p>Tem certeza que deseja excluir <strong>{{ player.name }}</strong>?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sim, excluir</button>
+    </form>
+
+    <a href="{% url 'player_list' %}" class="btn btn-secondary mt-3">Cancelar</a>
+</div>
+{% endblock %}
