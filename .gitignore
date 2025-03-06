@@ -1,0 +1,35 @@
+# Arquivos a serem ignorados pelo Git 
+# Diretórios do ambiente virtual
+venv/
+.env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Configuração de IDEs
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Arquivos de logs
+logs/
+*.log
+*.out
+*.err
+
+# Configuração do sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de pacotes Python
+Pipfile
+Pipfile.lock
+poetry.lock
+
+# Arquivos de carga do Banco de Dados
+*.xlsx
+
+# Arquivos de cache e compilação
+dist/
+build/
