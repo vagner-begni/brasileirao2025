@@ -8,7 +8,8 @@ from .views import PlayerTeamHistoryListView, PlayerTeamHistoryDetailView, Playe
 
 urlpatterns = [
     path("", home, name="home"),  # Página inicial
-    path("accounts/", include("django.contrib.auth.urls")),         # URLs padrão de login/logout
+    path('register/', register, name="register"),               # Adiciona URL de registro
+    path("accounts/", include("django.contrib.auth.urls")),     # URLs padrão de login/logout
     
     path("teams/", TeamListView.as_view(), name="team_list"),
     path("teams/<int:pk>/", TeamDetailView.as_view(), name="team_detail"),

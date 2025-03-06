@@ -37,8 +37,14 @@
                 <!-- Login/Logout -->
                 <ul class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">🚪 Sair ({{ user.username }})</a>
+                        <li class="nav-item d-flex align-items-center">
+                            <span class="navbar-text text-white me-3">
+                                👤 {{ user.username }}
+                            </span>
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Sair</button>
+                            </form>
                         </li>
                     {% else %}
                         <li class="nav-item">
